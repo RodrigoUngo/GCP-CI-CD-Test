@@ -10,3 +10,5 @@ images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest'
 options:
   logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: 'projects/antonioungo-dev/locations/us-central1/workerPools/challenge-3-pool'
