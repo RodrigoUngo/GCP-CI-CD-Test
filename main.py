@@ -1,29 +1,11 @@
-import functions_framework
-from flask import Flask
+from flask import Flask, request
+
 app = Flask(__name__)
 
-@functions_framework.http
 @app.route('/', methods=['GET'])
-def hello_http(request):
-    """HTTP Cloud Function.
-    Args:
-        request (flask.Request): The request object.
-        <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
-    Returns:
-        The response text, or any set of values that can be turned into a
-        Response object using `make_response`
-        <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
-    """
-    request_json = request.get_json(silent=True)
-    request_args = request.args
+def hello_http():
+    name = request.args.get('name', 'World: Testing the trigger with a push (Test 18)')
+    return f'Hello, {name}!'
 
-    if request_json and 'name' in request_json:
-        name = request_json['name']
-    elif request_args and 'name' in request_args:
-        name = request_args['name']
-    else:
-        name = 'World: Testing the trigger with a push (Test 16)'
-    return 'Hello {}!'.format(name)
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
