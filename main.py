@@ -1,4 +1,6 @@
 import functions_framework
+from flask import Flask
+app = Flask(__name__)
 
 @functions_framework.http
 def hello_http(request):
@@ -19,5 +21,8 @@ def hello_http(request):
     elif request_args and 'name' in request_args:
         name = request_args['name']
     else:
-        name = 'World: Testing the trigger with a push (Test 14)'
+        name = 'World: Testing the trigger with a push (Test 15)'
     return 'Hello {}!'.format(name)
+
+if __name__ == "__main__":
+    app.run()
