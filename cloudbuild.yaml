@@ -5,7 +5,7 @@ steps:
   args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
-  args: ['run', 'services', 'add-iam-policy-binding', 'challenge3-app', '--region=us-central1', '--member=user:414962541144-compute@developer.gserviceaccount.com', '--role=roles/run.invoker']
+  args: ['run', 'deploy', 'challenge3-app', '--image=us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image', '--ingress=all', '--allow-unauthenticated', '--region=us-central1']
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest'
 options:
