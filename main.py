@@ -19,5 +19,5 @@ def hello_http(request):
     elif request_args and 'name' in request_args:
         name = request_args['name']
     else:
-        name = 'World: Testing the trigger with a push (Test 6)'
+        name = 'World: Testing the trigger with a push (Test 7)'
     return 'Hello {}!'.format(name)
