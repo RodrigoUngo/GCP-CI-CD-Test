@@ -1,7 +1,12 @@
 steps:
+steps:
 - name: 'gcr.io/cloud-builders/docker'
-  script: |
-    docker build -t us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest .
-  automapSubstitutions: true
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image', '.']
+- name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+   entrypoint: 'gcloud'
+   args: ['run', 'deploy', 'create-with-container', 'my-vm-name', '--container-image', 'us-central1-docker.pkg.dev/${PROJECT_ID}/my-docker-repo/my-image']
+   env:
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest'
