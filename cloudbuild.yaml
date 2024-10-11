@@ -8,3 +8,5 @@ steps:
   args: ['run', 'deploy', 'challenge3-app', '--image=', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image', '--ingress=all', '--allow-unauthenticated', '--vpc-connector', '']
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
