@@ -1,14 +1,14 @@
 steps:
-  - name: gcr.io/cloud-builders/gsutil
-   entrypoint: /bin/bash
-   args:
-     - "-c"
-     - >
-       mkdir -p gcs/sqls gcs/jars &&
-       cp -r utils gcs &&
-       cp -r commercial_asa_redesign gcs &&
-       cp -r connected_planning gcs &&
-       gsutil -m rsync -d -r gcs ${_COMPOSER_GCS_BUCKET}/dags
-
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args: ['run', 'deploy', 'challenge3-app', '--image=us-central1-docker.pkg.dev/${PROJECT_ID}/challenge3-repo/challenge3-image', '--ingress=all', '--allow-unauthenticated', '--region=us-central1']
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/challenge3-repo/challenge3-image:latest'
 options:
   logging: CLOUD_LOGGING_ONLY
+  pool:
+    name: 'projects/antonioungo-dev/locations/us-central1/workerPools/challenge-3-pool'
