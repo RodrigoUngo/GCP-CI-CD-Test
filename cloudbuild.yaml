@@ -1,14 +1,14 @@
 steps:
-- name: gcr.io/cloud-builders/gsutil
-entrypoint: /bin/bash
-args:
-- "-c"
-- >
-mkdir -p gcs/sqls gcs/jars &&
-cp -r utils gcs &&
-cp -r commercial_asa_redesign gcs &&
-cp -r connected_planning gcs &&
-gsutil -m rsync -d -r gcs ${_COMPOSER_GCS_BUCKET}/dags
+  - name: gcr.io/cloud-builders/gsutil
+   entrypoint: /bin/bash
+   args:
+     - "-c"
+     - >
+       mkdir -p gcs/sqls gcs/jars &&
+       cp -r utils gcs &&
+       cp -r commercial_asa_redesign gcs &&
+       cp -r connected_planning gcs &&
+       gsutil -m rsync -d -r gcs ${_COMPOSER_GCS_BUCKET}/dags
 
 options:
-logging: CLOUD_LOGGING_ONLY
+  logging: CLOUD_LOGGING_ONLY
